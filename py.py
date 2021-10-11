@@ -10,6 +10,10 @@ mpHands = mp.solutions.hands
 hands = mpHands.Hands()
 mpDraw = mp.solutions.drawing_utils
 
+PFT=0
+
+font = cv2.FONT_HERSHEY_SIMPLEX
+
 
 def culc(px):
     deg = (px - w//2)//2
@@ -44,6 +48,15 @@ while True:
                           (0, 255, 0), thickness=3, lineType=8)
             lineL = int(cv2.norm((tx, ty), (ix, iy)))
             print("speed = ", lineL)
+
+    NFT = time.time()
+    fps = 1/(NFT-PFT)
+    PFT = NFT
+
+    fps = int(fps)
+    fps = str(fps)
+
+    cv2.putText(img, fps, (7, 70), font, 3, (100, 255, 0), 3, cv2.LINE_AA)
 
     src = cv2.circle(img, (w//2, h//2), 7, (0, 0, 255), -1)
     cv2.imshow("img", img)
